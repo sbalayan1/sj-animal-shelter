@@ -35,7 +35,20 @@ puts "Seeding shelters..."
 end
 
 puts "Seeding animals..."
+
 #create sample animals
+#required arguments: species(string), name(string), age(integer), breed(string), shelter_id(integer)
+
+#dogs
+25.times do 
+    Animal.create(species: "Dog", name: "#{Faker::Creature::Dog.unique.name}", age: "#{Faker::Creature::Dog.age}", breed: "#{Faker::Creature::Dog.breed}", shelter_id: Shelter.ids.sample)
+end
+
+#cats
+cat_age = [1..12]
+25.times do 
+    Animal.create(species: "Cat", name: "#{Faker::Creature::Cat.unique.name}", age: cat_age.sample, breed: "#{Faker::Creature::Cat.breed}", shelter_id: Shelter.ids.sample)
+end
 
 puts "Seeding adoptions..."
 #create sample adoptions
