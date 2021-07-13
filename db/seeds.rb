@@ -21,7 +21,7 @@ puts "Seeding visitors..."
 #create sample visitors
 #required arguments: name(string), location_id(integer)
 
-10.times do
+20.times do
     Visitor.create(name: Faker::Name.unique.name, location_id: Location.ids.sample)
 end
 
@@ -40,17 +40,24 @@ puts "Seeding animals..."
 #required arguments: species(string), name(string), age(integer), breed(string), shelter_id(integer)
 
 #dogs
+dog_age = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 25.times do 
-    Animal.create(species: "Dog", name: "#{Faker::Creature::Dog.unique.name}", age: "#{Faker::Creature::Dog.age}", breed: "#{Faker::Creature::Dog.breed}", shelter_id: Shelter.ids.sample)
+    Animal.create(species: "Dog", name: "#{Faker::Creature::Dog.unique.name}", age: dog_age.sample, breed: "#{Faker::Creature::Dog.breed}", shelter_id: Shelter.ids.sample)
 end
 
 #cats
-cat_age = [1..12]
+cat_age = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 25.times do 
     Animal.create(species: "Cat", name: "#{Faker::Creature::Cat.unique.name}", age: cat_age.sample, breed: "#{Faker::Creature::Cat.breed}", shelter_id: Shelter.ids.sample)
 end
 
 puts "Seeding adoptions..."
+
 #create sample adoptions
+#required arguments: date(string), price(integer), animal_id(integer), visitor_id(integer)
+
+10.times do 
+    Adoption.create(date: Faker::Date.between(from: '2021-07-01', to: '2021-07-16'), price: Faker::Commerce.price, animal_id: Animal.ids.sample, visitor_id: Visitor.ids.sample)
+end
 
 puts "Done!"
