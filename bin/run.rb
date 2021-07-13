@@ -7,7 +7,7 @@ name_response = prompt.ask('What is your name?')
 menu_choice = prompt.select("Hello! Welcome to the WestCoast WyldLyfe! Please select an option below.", ["About","Login", "Signup", "Exit"])
 
 if menu_choice === "About"
-    'hello world'
+    puts "WestCoast WyldLyfe is an application that helps YOU find your new animal companion. By finding the nearest animal shelters to you, we hope to make the process of finding and giving these lovely animals a new home as easy as possible. Established in the summer of 2021, WestCoast Wyldlyfe has already helped dozens of animals find a new family. Are you ready to start yours?"
 
 elsif menu_choice === "Login"
     user_name = prompt.ask("Username:")
