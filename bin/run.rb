@@ -27,36 +27,45 @@ if menu_choice === "Login"
 
     if Visitor.all.find {|visitor| visitor.name === user_name && visitor.password === password}
         current_user = Visitor.all.find {|visitor| visitor.name === user_name && visitor.password === password} 
-        puts "Welcome to WestCoast WyldLyfe #{current_user.name}!!!"
+        puts "Welcome back to WestCoast WyldLyfe #{current_user.name}!"
 
-        current_user_shelters = Shelter.all.select {|shelter| shelter.location_id == current_user.location_id}
-        puts current_user_shelters
-        # shelter_menu_choice = prompt.select("These are your local shelters. Which one are you looking at today?", current_user_shelters)
+        current_user_shelters = Shelter.all.select {|shelter| shelter.location_id == current_user.location_id}.map {|shelter| shelter.name}
+        shelter_menu_choice = prompt.select("These are your local shelters. Which one are you looking at today?", current_user_shelters)
 
-        # if shelter_menu_choice == "Santiago Ward Animal Shelter"
-        #     selected_shelter = Shelter.find_by(name: "Santiago Ward Animal Shelter")
+        if shelter_menu_choice == "Santiago Ward Animal Shelter"
 
-        #     shelter_animal_choice = prompt.select("Please select an option below.", ["See available dogs", "See available cats", "See all my adoptions", "Exit"])
-        # end
+            shelter_animal_choice = prompt.select("Please select an option below.", ["See available dogs", "See available cats", "See all my adoptions", "Exit"])
 
-        # if shelter_menu_choice == "Miss Darren Donnelly Animal Shelter"
-        #     selected_shelter = Shelter.find_by(name: "Miss Darren Donnelly Animal Shelter")
+            if shelter_animal_choice == "See available dogs"
+            selected_shelter = Shelter.find_by(name: "Santiago Ward Animal Shelter")
+            shelter_animals = Animal.all.select {|animal| animal.shelter_id == selected_shelter.id}.select {|animal| animal.species == "Dog"}.map {|animal| "#{animal.species} / #{animal.name}"}
+            prompt.select("Good choice, these are the available animals at this time. Select one to adopt!", shelter_animals)
+            end
+        end
 
-        #     menu_choice = prompt.select("Please select an option below.", ["See available dogs", "See available cats", "See all my adoptions", "Exit"])
-        # end
+        if shelter_menu_choice == "Miss Darren Donnelly Animal Shelter"
 
-        # if shelter_menu_choice == "Justine Johnston Animal Shelter"
-        #     selected_shelter = Shelter.find_by(name: "Justine Johnston Animal Shelter")
+            prompt.select("Great shelter! Here are the:\n Available Dogs\n Available Cats\n Current Adoptions", )
 
-        #     menu_choice = prompt.select("Please select an option below.", ["See available dogs", "See available cats", "See all my adoptions", "Exit"])
+            selected_shelter = Shelter.find_by(name: "Santiago Ward Animal Shelter")
+            shelter_animals = Animal.all.select {|animal| animal.shelter_id == selected_shelter.id}.map {|animal| "#{animal.species} / #{animal.name}"}
+            prompt.select("Good choice, these are the available animals at this time. Select one to adopt!", shelter_animals)
+        end
 
-        # end
+        if shelter_menu_choice == "	Justine Johnston Animal Shelter"
+
+            prompt.select("Great shelter! Here are the:\n Available Dogs\n Available Cats\n Current Adoptions", )
+
+            selected_shelter = Shelter.find_by(name: "Santiago Ward Animal Shelter")
+            shelter_animals = Animal.all.select {|animal| animal.shelter_id == selected_shelter.id}.map {|animal| "#{animal.species} / #{animal.name}"}
+            prompt.select("Good choice, these are the available animals at this time. Select one to adopt!", shelter_animals)
+        end
 
     else 
-        puts "That user does not exist or there was an error in your password "
+        puts "That user does not exist. "
         menu_choice = prompt.select("Please select an option below.", ["Login", "Signup", "Exit"])
     end 
-end
+
 
 #sign up section
 if menu_choice === "Signup"
