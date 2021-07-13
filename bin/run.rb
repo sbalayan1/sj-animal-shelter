@@ -7,6 +7,10 @@ menu_choice = prompt.select("Hello! Welcome to the WestCoast WyldLyfe! Please se
 
 if menu_choice === "About"
     puts "WestCoast WyldLyfe is an application that helps YOU find your new animal companion. By finding the nearest animal shelters to you, we hope to make the process of finding and giving these lovely animals a new home as easy as possible. Established in the summer of 2021, WestCoast Wyldlyfe has already helped dozens of animals find a new family."
+<<<<<<< HEAD
+=======
+
+>>>>>>> 521c134f41e1be27250ab2b1e4199c30acc8d8d1
 
     decision = prompt.yes?("Are you ready to start yours?")
 
@@ -35,9 +39,7 @@ if menu_choice === "Login"
     # date_choice = prompt.select("Choose a date", [Date.parse("06/13/2021"),Date.parse("06/14/2021"),Date.parse("06/15/2021")])
 
     animal_choice = prompt.select("Select an below:", Animal.all)
-
-    # date_choice = prompt.select("Choose a date", [Date.parse("06/13/2010"), Date.parse("06/14/2021"), Date.parse("06/15/2021")])
-
+  
     # if appt_confirmation === "Yes"
     #     Adoption.create(animal_id: animal_choice.id, visitor_id: current_user.id, date: date_choice)
 
@@ -53,12 +55,15 @@ if menu_choice === "Signup"
 
     if reinput_password === new_password
         puts "Thank you for signing up to WestCoast WyldLyfe! Please login using your new login information." 
-
+        menu_choice = "Login"
     else 
         puts "The passwords do not match. "
+        menu_choice = "Signup"
+        new_user = new_user
+        new_user_location = new_user_location
     end
 end
 
 if menu_choice == "Exit"
-    exit
+  exit
 end
