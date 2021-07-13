@@ -65,6 +65,7 @@ if menu_choice === "Login"
         puts "That user does not exist. "
         menu_choice = prompt.select("Please select an option below.", ["Login", "Signup", "Exit"])
     end 
+end
 
 
 #sign up section
