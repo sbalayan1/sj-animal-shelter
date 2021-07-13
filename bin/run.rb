@@ -2,16 +2,14 @@ require_relative '../config/environment'
 
 prompt = TTY::Prompt.new
 
-puts 'hello world'
-puts 'hi sean changed this'
 
 name_response = prompt.ask('What is your name?')
+menu_choice = prompt.select("Hello! Welcome to the WestCoast WyldLyfe! Please select an option below.", ["About","Login", "Signup", "Exit"])
 
-puts name_response
+if menu_choice === "About"
+    'hello world'
 
-menu_choice = prompt.select("What would you liked to do?", ["Login", "Signup"])
-
-if menu_choice === "Login"
+elsif menu_choice === "Login"
     user_name = prompt.ask("Username:")
     password = prompt.mask("Password:")
 
@@ -30,4 +28,21 @@ if menu_choice === "Login"
 
         puts "congrats on your adoption!!!"
     end
+elsif menu_choice === "Signup"
+    new_user = prompt.ask("new_username:")
+    new_user_location = prompt.select("Choose from the zip codes below! San Francisco: 94127 Los Angeles: 90048", [94127, 90048])
+    new_password = prompt.mask("new_password")
+    reinput_password = prompt.mask("reinput_password")
+
+    if reinput_password === new_password
+        puts "Thank you for signing up to WestCoast WyldLyfe! Please login using your new login information." 
+        menu_choice = "Login"
+    else 
+        puts "The passwords do not match. "
+        menu_choice = "Signup"
+        new_user = new_user
+        new_user_location = new_user_location
+    end
+else 
+    exit
 end
