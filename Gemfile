@@ -7,3 +7,9 @@ gem "require_all"
 
 gem 'faker'
 gem 'tty-prompt'
+
+gem 'rack'
+gem 'rack-test'
+gem 'rspec'
+gem 'rack-cors'
+gem 'shotgun'
