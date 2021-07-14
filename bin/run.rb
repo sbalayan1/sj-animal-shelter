@@ -59,20 +59,6 @@ adoption_choice = nil
         end 
     end
 
-
-<<<<<<< HEAD
-            if shelter_animal_choice == "See available dogs"
-            selected_shelter = Shelter.find_by(name: "Santiago Ward Animal Shelter")
-            shelter_animals = Animal.all.select {|animal| animal.shelter_id == selected_shelter.id}.select {|animal| animal.species == "Dog"}.map {|animal| "#{animal.name} / #{animal.age} year(s) old"}
-            prompt.select("Good choice, these are the available animals at this time. Select one to adopt!", shelter_animals)
-            end
-
-            if shelter_animal_choice == "See available cats"
-                selected_shelter = Shelter.find_by(name: "Santiago Ward Animal Shelter")
-                shelter_animals = Animal.all.select {|animal| animal.shelter_id == selected_shelter.id}.select {|animal| animal.species == "Cat"}.map {|animal| "#{animal.name} / #{animal.age} year(s) old"}
-                prompt.select("Good choice, these are the available animals at this time. Select one to adopt!", shelter_animals)
-            end
-=======
 #sign up section
     if menu_choice === "Signup"
         new_user = prompt.ask("Enter your new username:", required: true)
@@ -90,7 +76,7 @@ adoption_choice = nil
         else 
             puts "The passwords do not match or you have not entered in a valid username. Please try again."
             menu_choice = prompt.select("Please select an option below.", ["Login", "Signup", "Exit"])
->>>>>>> main
+
         end
     end
 
@@ -123,24 +109,7 @@ adoption_choice = nil
             menu_choice = prompt.select("Unfortunately there are no animals available at this time", ["See all my adoptions", "See available cats", "Exit"])
         end
     end 
-<<<<<<< HEAD
-end
 
-#sign up section
-if menu_choice === "Signup"
-    new_user = prompt.ask("Enter your new username:", required: true)
-    new_password = prompt.mask("Enter your new password:", required: true)
-    reinput_password = prompt.mask("Re-enter your password to confirm:", required: true)
-
-    if reinput_password === new_password && Visitor.all.find_by(name: new_user) === nil
-        new_user_location = prompt.select("Select the zip-code that corresponds to your city!\n San Francisco: 94127\n Los Angeles: 90048", [94127, 90048])
-        Visitor.create(name: new_user, location_id: new_user_location, password: new_password)
-        puts "Thank you for signing up to WestCoast WyldLyfe! Please login using your new login information." 
-        menu_choice = prompt.select("Please select an option below.", ["Login", "Exit"])
-    else 
-        puts "The passwords do not match or you have not entered in a valid username. Please try again."
-        menu_choice = prompt.select("Please select an option below.", ["Login", "Signup", "Exit"])
-=======
 
     ##see cats
     if menu_choice === "See available cats"
@@ -152,7 +121,7 @@ if menu_choice === "Signup"
         else 
             menu_choice = prompt.select("Unfortunately there are no animals available at this time", ["See all my adoptions", "See available dogs", "Exit"])
         end 
->>>>>>> main
+
     end
 
     if menu_choice === shelter_animals
