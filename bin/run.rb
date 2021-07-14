@@ -38,8 +38,14 @@ if menu_choice === "Login"
 
             if shelter_animal_choice == "See available dogs"
             selected_shelter = Shelter.find_by(name: "Santiago Ward Animal Shelter")
-            shelter_animals = Animal.all.select {|animal| animal.shelter_id == selected_shelter.id}.select {|animal| animal.species == "Dog"}.map {|animal| "#{animal.species} / #{animal.name}"}
+            shelter_animals = Animal.all.select {|animal| animal.shelter_id == selected_shelter.id}.select {|animal| animal.species == "Dog"}.map {|animal| "#{animal.name} / #{animal.age} year(s) old"}
             prompt.select("Good choice, these are the available animals at this time. Select one to adopt!", shelter_animals)
+            end
+
+            if shelter_animal_choice == "See available cats"
+                selected_shelter = Shelter.find_by(name: "Santiago Ward Animal Shelter")
+                shelter_animals = Animal.all.select {|animal| animal.shelter_id == selected_shelter.id}.select {|animal| animal.species == "Cat"}.map {|animal| "#{animal.name} / #{animal.age} year(s) old"}
+                prompt.select("Good choice, these are the available animals at this time. Select one to adopt!", shelter_animals)
             end
         end
 
@@ -65,7 +71,7 @@ if menu_choice === "Login"
         puts "That user does not exist. "
         menu_choice = prompt.select("Please select an option below.", ["Login", "Signup", "Exit"])
     end 
-
+end
 
 #sign up section
 if menu_choice === "Signup"
