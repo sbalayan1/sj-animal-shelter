@@ -44,10 +44,10 @@ puts "Seeding animals..."
     cat_age = rand(1..12)
 
     #dogs
-    Animal.create(species: "Dog", name: "#{Faker::Creature::Dog.name}", age: dog_age, breed: "#{Faker::Creature::Dog.breed}", shelter_id: Shelter.ids.sample, adopted: false)
+    Animal.create(species: "Dog", name: "#{Faker::Creature::Dog.name}", age: dog_age, breed: "#{Faker::Creature::Dog.breed}", shelter_id: Shelter.ids.sample, adopted: false, price: Faker::Commerce.price)
 
     #cats
-    Animal.create(species: "Cat", name: "#{Faker::Creature::Cat.name}", age: cat_age, breed: "#{Faker::Creature::Cat.breed}", shelter_id: Shelter.ids.sample, adopted: false)
+    Animal.create(species: "Cat", name: "#{Faker::Creature::Cat.name}", age: cat_age, breed: "#{Faker::Creature::Cat.breed}", shelter_id: Shelter.ids.sample, adopted: false, price: Faker::Commerce.price)
 end
 
 
@@ -57,8 +57,10 @@ puts "Seeding adoptions..."
 #required arguments: date(string), price(integer), animal_id(integer), visitor_id(integer)
 
 10.times do 
-    animal_id = Animal.ids.sample
-    Adoption.create(date: Faker::Date.between(from: '2021-07-01', to: '2021-07-16'), price: Faker::Commerce.price, animal_id: animal_id, visitor_id: Visitor.ids.sample)
+    animal_id = Animal.all.select {|animal| animal.adopted === false}.map {|animal| animal.id}.sample
+    animal_price = Animal.all.find_by id: animal_id
+    
+    Adoption.create(date: Faker::Date.between(from: '2021-07-01', to: '2021-07-16'), price: animal_price.price, animal_id: animal_id, visitor_id: Visitor.ids.sample)
 
     adopted_animal = Animal.all.find{|animal| animal.id == animal_id}
     adopted_animal.adopted = true
