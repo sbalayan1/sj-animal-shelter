@@ -28,7 +28,7 @@ class Application
       elsif req.path.match(/visitors/) && req.post?
 
         data = JSON.parse req.body.read
-        visitor = Visitor.create(name: data["name"], password: data["password"], location_id: data["location_id"])
+        visitor = Visitor.create(name: data["username"], password: data["password"], location_id: data["location_id"])
 
         res_visitor = {id: visitor.id, name: visitor.name, password: visitor.password, location_id: visitor.location_id} 
 

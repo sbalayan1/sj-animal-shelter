@@ -1,4 +1,10 @@
 require_relative '../config/environment'
+require "artii"
+require "colorize"
+
+arter = Artii::Base.new
+
+puts arter.asciify("WestCoast WyldLyfe").yellow
 
 prompt = TTY::Prompt.new
 current_user = nil
@@ -104,7 +110,7 @@ adoption_choice = nil
         shelter_animals = Animal.all.select {|animal| animal.shelter_id == selected_shelter.id}.select {|animal| animal.species == "Dog"}.select {|animal| animal.adopted == false}.map {|animal| animal.name}
 
         if shelter_animals != []
-            menu_choice = prompt.select("Good choice, these are the available animals at this time. Select one to adopt!", [shelter_animals, "See available cats", "Exit"])
+            menu_choice = prompt.select("Good choice, these are the available dogs at this time. Select one to adopt!", [shelter_animals, "See available cats", "Exit"])
         else 
             menu_choice = prompt.select("Unfortunately there are no animals available at this time", ["See all my adoptions", "See available cats", "Exit"])
         end
@@ -114,10 +120,27 @@ adoption_choice = nil
     ##see cats
     if menu_choice === "See available cats"
         shelter_animals = Animal.all.select {|animal| animal.shelter_id == selected_shelter.id}.select {|animal| animal.species == "Cat"}.select {|animal| animal.adopted == false}.map {|animal| animal.name}
+
+        shelter_animals_id = Animal.all.select {|animal| animal.shelter_id == selected_shelter.id}.select {|animal| animal.species == "Cat"}.select {|animal| animal.adopted == false}.map {|animal| animal.id}
         
         if shelter_animals != []
             
-            adoption_choice = prompt.select("Good choice, these are the available animals at this time. Select one to adopt!", [shelter_animals, "See available dogs", "Exit"])
+            adoption_choice = prompt.select("here are the available cats. Select one to adopt!", [shelter_animals, "Exit"])
+
+            if adoption_choice === shelter_animals[0]
+                puts "You're one step closer to your new best friend!"
+                date_select = prompt.ask("Please enter today's date: ")
+                price_select = prompt.ask("The price of this adoption is $50. Please re-enter the price to confirm: ")
+                puts "Congratulations! You are now #{shelter_animals[0]}'s new parent!"
+                create_adoption = Adoption.create(date: date_select, price: price_select, animal_id: shelter_animals_id[0], visitor_id: current_user.id)
+                # new_adoption = Adoption.all.select {|adoption| adoption.visitor_id == current_user.id}.map {|adoption| adoption.name}
+                look_at_adoption = prompt.select("We hope you and your new animal are happy, your adoption list has updated!", ["See all my adoptions", "Exit"])
+                if look_at_adoption === "See all my adoptions"
+                    prompt.select("Congrats! Click your new bud to exit!", ["#{shelter_animals[0]}"]) 
+                end
+                
+            end
+
         else 
             menu_choice = prompt.select("Unfortunately there are no animals available at this time", ["See all my adoptions", "See available dogs", "Exit"])
         end 
