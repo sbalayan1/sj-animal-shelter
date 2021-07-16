@@ -5,6 +5,9 @@ gem "sqlite3"
 gem "pry"
 gem "require_all"
 
+gem "artii"
+gem "colorize"
+
 gem 'faker'
 gem 'tty-prompt'
 
